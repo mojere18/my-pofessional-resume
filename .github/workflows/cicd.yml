@@ -1,9 +1,10 @@
 name: My first pipeline
-on:
-    push:
-        branches: ["main"]
 
-        jobs:
+on:
+   push:
+    branches: ["main"]
+
+jobs:
             build:
                 runs-on: ubuntu-latest #macos, windows-latest
                 steps:
@@ -18,5 +19,8 @@ on:
                         username: gotservices
                         password: ${{ secrets.DOCKER_PASS }}
                     - name: push image
-                    run:
-                        docker push gotservices/cicd-portfolio
+                      run: docker push gotservices/cicd-portfolio                      
+
+                      
+
+            
