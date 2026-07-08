@@ -11,7 +11,7 @@ jobs:
       steps:
         - name: chechout code
           uses: actions/checkout@v7
-          uses: aquasecurity/trivy-action@v0.26.0
+          uses: aquasecurity/trivy-action@v0.36.0
       with:
         scan-type: 'fs'
       severity: HIGH,CRITICAL
@@ -20,7 +20,7 @@ jobs:
       -name: Build Docker Image
       run: 825269749614.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest .
       name: Scan image with Trivy 
-      uses: aquasecurity/trivy-actionv@v0.36.0
+      uses: aquasecurity/trivy-action@v0.36.0
       with: 
                 image-ref: 825269749614.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest
                 format: table 
