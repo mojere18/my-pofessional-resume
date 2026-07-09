@@ -24,7 +24,7 @@ jobs:
           exit-code: 0
 
       - name: Build Docker Image
-        run: docker build -t ${{ secrets.ECR_REPO }}/my-repo:latest
+        run: docker build -t ${{ secrets.ECR_REPO }}/my-repo:latest .
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
