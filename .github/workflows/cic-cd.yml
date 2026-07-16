@@ -24,6 +24,7 @@ jobs:
           exit-code: 0
 
       - name: Build Docker Image
+        id: build
         run: docker build -t ${{ secrets.ECR_REPO }}/my-repo:latest .
 
       - name: Scan image with Trivy
