@@ -1,0 +1,30 @@
+{
+  "family": "my-repo",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::825269749614:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::825269749614:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "my-repo-container",
+      "image": "PLACEHOLDER_IMAGE",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/my-repo",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
