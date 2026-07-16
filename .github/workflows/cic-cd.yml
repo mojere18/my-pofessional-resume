@@ -73,6 +73,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: my-service
+          service: arn:aws:iam::825269749614:user/aws-cli-terraform-DO-NOT-DELETE
           cluster: arn:aws:ecs:us-east-1:825269749614:cluster/my-cluster
           wait-for-service-stability: true
