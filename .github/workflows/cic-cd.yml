@@ -67,7 +67,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: my-repo-container
-          image: ${{ needs.build_scan.outputs.image }}
+          image: ${{ secrets.ECR_REPO }}
 
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
@@ -76,4 +76,4 @@ jobs:
           service: my-service
           cluster: my-cluster
           wait-for-service-stability: true
- 
+          
