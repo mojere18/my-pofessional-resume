@@ -74,5 +74,5 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: my-service
-          cluster: arn:aws:ecs:us-east-1:825269749614:service/my-service
+          cluster: arn:aws:ecs:us-east-1:825269749614:cluster/my-cluster
           wait-for-service-stability: true
