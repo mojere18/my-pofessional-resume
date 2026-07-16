@@ -8,7 +8,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   build_scan:
     runs-on: ubuntu-latest
@@ -28,11 +28,11 @@ jobs:
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
-        with: 
+        with:
           image-ref: ${{ secrets.ECR_REPO }}/my-repo:latest
           format: 'table'
           exit-code: 0
-          ignore-unfixed: true 
+          ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
 
       - name: Configure AWS credentials
@@ -47,3 +47,33 @@ jobs:
 
       - name: Push image to ECR
         run: docker push ${{ secrets.ECR_REPO }}/my-repo:latest
+
+  deploy:
+    needs: build_scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: us-east-1
+
+      - name: Fill in new image ID in task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: my-repo-container
+          image: ${{ needs.build_scan.outputs.image }}
+
+      - name: Deploy to Amazon ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: my-service
+          cluster: my-cluster
+          wait-for-service-stability: true
+ 
