@@ -62,7 +62,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: us-east-1
 
-      - name: Fill in new image ID in task definition
+      - name: ${{ secrets.ECR_REPO }}
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
