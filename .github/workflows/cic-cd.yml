@@ -68,8 +68,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: my-repo-container
-          image: ${{ secrets.ECR_REPO }}
-
+          image: ${{ secrets.ECR_REPO }}/my-repo:latest
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
